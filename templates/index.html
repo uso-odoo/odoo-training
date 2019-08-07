@@ -6,32 +6,44 @@
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  <script src="static/search.js"></script>
+    <script>
+        function myFunction() {
+            var xhttp = new XMLHttpRequest();
+            var search_string = document.getElementById("search_string").value;
+            var tr = "";
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var result = JSON.parse(this.responseText);
+                    for(i=0;i < result.length;i++) {
+                        tr += "<tr><td>"+result[i].id+"</td><td>"+result[i].product+"</td><td>"+result[i].price+"</td><td><input type='number' name'quantity' value='1' min='1' style='width: 70px'></td><td><button type='button' class='btn btn-primary btn-sm'>Add To Cart</button></td></tr>";
+                    }
+                        document.getElementById("product").innerHTML = tr;
+                }
+            };
+            xhttp.open("POST", "/search?search_string="+search_string, true);
+            xhttp.send();
+        }
+    </script>
 </head>
 <body>
 
 <div class="container">
   <div class="row">
     <div class="col" id="demo">
-
-
 	<nav class="navbar navbar-light bg-light justify-content-between">
- <!-- <a class="navbar-brand">Navbar</a> -->
-  <form class="form-inline">
-    <input class="form-control mr-sm-2" type="search" id="search_string" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-  </form>
+    <form class="form-inline">
+      <input class="form-control mr-sm-2" type="text" id="search_string">
+      <input type="button" class="btn btn-outline-success my-2 my-sm-0"  onclick="myFunction()" value="Submit">
+    </form>
 	</nav>
     </div>
   </div>
 
-
 <!--<div class="container"> -->
-  <div class="row">
+<div class="row">
     <div class="col">
-
-	<table class="table">
-  <thead>
+	<table class="table" id="myTable">
+    <thead>
     <tr>
       <th scope="col">No</th>
       <th scope="col">Product Name</th>
@@ -39,10 +51,9 @@
       <th scope="col">Price</th>
       <th scope="col">Quantity</th>
       <th scope="col">Add</th>
-
     </tr>
   </thead>
-  <tbody>
+  <tbody id="product">
     <!-- forloop -->
 {% for row in data %}
 <tr>
