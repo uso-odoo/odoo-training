@@ -19,7 +19,8 @@ class Shop(object):
                                      autoescape=True)  
         self.url_map = Map([
             Rule('/', endpoint='index_url'),
-            Rule('/search', endpoint='search_data')
+            Rule('/search', endpoint='search_data'),
+            Rule('/add', endpoint='add_to_cart')
         ])
     
     def index_url(self, request):
@@ -40,6 +41,10 @@ class Shop(object):
 
         return Response(json.dumps(found), mimetype='application/json')     
 
+    def add_to_cart(self, request):
+        data = self.csv_reader()
+        return self.render_template('index.html',data=data)
+
     def csv_reader(self):
         rdr= csv.reader( open("Products/data.csv", "r" ) )
         header = next(rdr,None)
@@ -57,6 +62,7 @@ class Shop(object):
     def wsgi_app(self, environ, start_response):
         request = Request(environ)
         response = self.dispatch_request(request)
+
         return response(environ, start_response) 
 
     def render_template(self, template_name, **context):
@@ -64,7 +70,7 @@ class Shop(object):
         return Response(t.render(context), mimetype='text/html')
 
     def __call__(self, environ, start_response):
-        
+
         return self.wsgi_app(environ, start_response)
 
 def create_app():

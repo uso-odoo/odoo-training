@@ -23,6 +23,16 @@
             xhttp.open("POST", "/search?search_string="+search_string, true);
             xhttp.send();
         }
+
+        function onclickFuction() {
+            var mode = 'add_to_cart';
+            //var mode = 'delete';
+            if (mode === 'add_to_cart') {
+                $("#div").show();
+            }
+            document.getElementById("div").innerHTML = "Hello World";
+        }
+
     </script>
 </head>
 <body>
@@ -58,16 +68,14 @@
 {% for row in data %}
 <tr>
     <td>{{ row.0 }}</td><td>{{ row.1 }}</td><td>{{ row.2 }}</td>
-
     <td><input type="number" name="quantity" value="1" min="1" style="width: 70px"></td>
-    <td><button type="button" class="btn btn-primary btn-sm">Add To Cart</button></td>
+    <td><button type="button" class="btn btn-primary btn-sm" onclick="onclickFuction()">Add To Cart</button></td>
 
 </tr>
 {% endfor %}
 
     <!-- END-->
 <!--
-
     <tr>
       <th scope="row">1</th>
       <td>Milk</td>
@@ -99,10 +107,9 @@
     </div>
   </div>
 <!--</div> ..>
-<div class="container d-none">
-  <div class="row">
+<!--<div class="container d-none"> -->
+  <div class="row" id="div">
     <div class="col-6">
-
 
   <h4>
     <span class="text-muted"> Your cart {{data}} </span>
@@ -149,4 +156,4 @@
 </div>
 </div>
 </body>
-</html>
+</html>sss
