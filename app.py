@@ -1,6 +1,4 @@
 import os
-#import redis
-#import urlparse
 from werkzeug.wrappers import Request, Response
 from werkzeug.routing import Map, Rule
 from werkzeug.exceptions import HTTPException, NotFound
@@ -10,6 +8,12 @@ from jinja2 import Environment, FileSystemLoader
 import jinja2
 import csv
 import json
+from werkzeug.contrib.sessions import SessionMiddleware, FilesystemSessionStore
+from werkzeug.contrib.securecookie import SecureCookie
+import requests
+
+session_store = FilesystemSessionStore()
+# cookie_data = request.cookies.get('cart_cookie')
 
 class Shop(object):
 
@@ -26,9 +30,9 @@ class Shop(object):
     def index_url(self, request):
         #import pdb;pdb.set_trace()
         data = self.csv_reader()
-        cookie_data = request.cookies.get('session_data')
+        #cookie_data = request.cookies.get('cart_cookie')   #,product_detail=cookie_data
 
-        return self.render_template('index.html',data=data,product_detail=cookie_data)
+        return self.render_template('index.html',data=data)
 
     def search_data(self, request):
         found = []
@@ -39,23 +43,29 @@ class Shop(object):
                 lines = [line for line in csv_reader if line]
                 data = [dict(zip(lines[0], l)) for l in lines[1:]]
 
-            found = [i for i in data if word in (i['product'].strip(),i['id'].strip())]
+            found = [i['id'] for i in data if word in (i['product'].strip(),i['id'].strip())]
             response = Response(json.dumps(found), mimetype='application/json')
+            
             if request.args.get('add_to_cart'):
+                cookie_data = request.cookies.get('cart_cookie')
+                print(cookie_data)
                 response.set_cookie('cart_cookie',json.dumps(found))
-        return response   
+
+            if cookie_data:
+                cookie = json.loads(cookie_data)
+                #for i in cookie:
+                cookie.append(cookie)
+                #cookie.append(request)
+                #print(cookie)
+                # response.set_cookie('cart_cookie',json.dumps(found))
+            else:
+                response.set_cookie('cart_cookie',json.dumps(found))      
+            return response   
 
     def csv_reader(self):
         rdr= csv.reader( open("Products/data.csv", "r" ) )
         header = next(rdr,None)
         csv_data = [ row for row in rdr ]
-
-        # if not request.cookies.get('id_cookie'):
-        #     response=Response("user is not valid")
-        #     return response(environ, start_response)
-        # else:
-        #     return csv_data
-
         return csv_data
 
     def dispatch_request(self, request):
