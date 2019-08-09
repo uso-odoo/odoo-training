@@ -20,13 +20,15 @@ class Shop(object):
         self.url_map = Map([
             Rule('/', endpoint='index_url'),
             Rule('/search', endpoint='search_data'),
-            Rule('/add', endpoint='add_to_cart')
+#            Rule('/add', endpoint='add_to_cart')
         ])
     
     def index_url(self, request):
         #import pdb;pdb.set_trace()
         data = self.csv_reader()
-        return self.render_template('index.html',data=data)
+        cookie_data = request.cookies.get('session_data')
+
+        return self.render_template('index.html',data=data,product_detail=cookie_data)
 
     def search_data(self, request):
         found = []
@@ -37,18 +39,23 @@ class Shop(object):
                 lines = [line for line in csv_reader if line]
                 data = [dict(zip(lines[0], l)) for l in lines[1:]]
 
-            found = [i for i in data if word in i['product'].strip()]
-
-        return Response(json.dumps(found), mimetype='application/json')     
-
-    def add_to_cart(self, request):
-        data = self.csv_reader()
-        return self.render_template('index.html',data=data)
+            found = [i for i in data if word in (i['product'].strip(),i['id'].strip())]
+            response = Response(json.dumps(found), mimetype='application/json')
+            if request.args.get('add_to_cart'):
+                response.set_cookie('cart_cookie',json.dumps(found))
+        return response   
 
     def csv_reader(self):
         rdr= csv.reader( open("Products/data.csv", "r" ) )
         header = next(rdr,None)
         csv_data = [ row for row in rdr ]
+
+        # if not request.cookies.get('id_cookie'):
+        #     response=Response("user is not valid")
+        #     return response(environ, start_response)
+        # else:
+        #     return csv_data
+
         return csv_data
 
     def dispatch_request(self, request):
@@ -62,7 +69,7 @@ class Shop(object):
     def wsgi_app(self, environ, start_response):
         request = Request(environ)
         response = self.dispatch_request(request)
-
+        #response.set_cookie('id_cookie',number)
         return response(environ, start_response) 
 
     def render_template(self, template_name, **context):
@@ -75,7 +82,6 @@ class Shop(object):
 
 def create_app():
     app = Shop()
-
     return app
 
 if __name__ == '__main__':
