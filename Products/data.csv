@@ -1,4 +1,6 @@
-ID,Product,Price
-1,Milk ,20
+id,product,price
+1,Milk,20
 2,Bottle,200
 3,Mobile,258963
+4,Milk,24
+5,Mobile,10000
