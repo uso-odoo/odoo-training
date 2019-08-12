@@ -32,7 +32,6 @@
       <th scope="col">Product Name</th>
    <!--   <th scope="col">Category</th> -->
       <th scope="col">Price</th>
-      <th scope="col">Quantity</th>
       <th scope="col">Add</th>
     </tr>
   </thead>
@@ -41,7 +40,7 @@
 {% for row in data %}
 <tr>
     <td>{{ row.0 }}</td><td>{{ row.1 }}</td><td>{{ row.2 }}</td>
-    <td><input type="number" name="quantity" value="1" min="1" style="width: 70px"></td>
+    <!--<td><input type="number" name="quantity" value="1" min="1" style="width: 70px"></td> -->
     <td><button type="button" class="btn btn-primary btn-sm" onclick="onclickFuction({{ row.0 }})">Add To Cart</button></td>
 
 </tr>
@@ -86,7 +85,7 @@
     <div class="col-6">
 
   <h4>
-    <span class="text-muted"> Your cart {{product_detail}} </span>
+    <span class="text-muted"> Your Cart {{product_detail}} </span>
     <!--<span class="badge badge-secondary badge-pill"> 3 </span> -->
   </h4>  
   <ul class="list-group mb-3" id="list">
@@ -123,10 +122,21 @@
   <span>Total (USD)</span>
   <strong>10,220</strong>
 </li> -->
-
+{% for row in cart_data %}
+<li class="list-group-item d-flex justify-content-between lh-condensed">
+      <div>
+        <h6 class="my-0">{{row.1}}</h6>
+      </div>
+      <span class="text-muted">
+        {{row.2}}
+      </span>
+    </li>
+{% endfor %}
   </ul>
+
 <hr class="mb-4">
 <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to Checkout</button>
+
 </div>
 </div>
 </div>

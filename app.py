@@ -32,23 +32,69 @@ class Shop(object):
     def index_url(self, request):
         #import pdb;pdb.set_trace()
         data = self.csv_reader()
-        #cookie_data = request.cookies.get('session_data')   ,product_detail=cookie_data
+        cookie_data = request.cookies.get('cart_cookie')
+        final_result = []
+        if cookie_data:
+            cookie = json.loads(cookie_data) #,product_detail=cookie_data
+            print(cookie)
+            #self.search()
 
-        return self.render_template('index.html',data=data)
+            # found = {}
+            # with open('Products/data.csv', 'r') as f_in:
+            #     csv_reader = csv.reader(f_in, delimiter=',', quotechar='"')
+            #     lines = [line for line in csv_reader if line]
+            #     data = [dict(zip(lines[0], l)) for l in lines[1:]]
+            #     found = [i for i in data if word in (i['product'].strip(),i['id'].strip())]
+
+            #     for id, product , price in csv_reader:
+            #         if found[0]['id'] in cookie:
+            # #final_result.setdefault('id', []).append(product)
+            #             # found.setdefault('product', []).append(product)
+            #             # found.setdefault('price', []).append(price)
+            #             return found
+            ################################################################
+            # found = self.search(request.args.get('search_string'))
+            # response = Response(json.dumps(found), mimetype='application/json')
+
+            with open('Products/data.csv', 'r') as f_in:
+                reader = csv.reader(f_in)
+                next(reader)
+                for line in reader:
+                    if line[0] in cookie:
+            #final_result.setdefault('id', []).append(product)
+                        final_result.append(line)
+                #return response
+            print(final_result)
+
+        return self.render_template('index.html',data=data,cart_data=final_result)
+
+    def search(self,word):
+        found = []
+        with open('Products/data.csv', 'r') as f_in:
+            csv_reader = csv.reader(f_in, delimiter=',', quotechar='"')
+            lines = [line for line in csv_reader if line]
+            data = [dict(zip(lines[0], l)) for l in lines[1:]]
+            found = [i for i in data if word in (i['product'].strip(),i['id'].strip())]
+        return found
+
+
+    #def check_out(self,word):
+
 
     def search_data(self, request):
-        found = []
+        #found = []
         if request.method == "POST":
-            word = request.args.get('search_string')
-            with open('Products/data.csv', 'r') as f_in:
-                csv_reader = csv.reader(f_in, delimiter=',', quotechar='"')
-                lines = [line for line in csv_reader if line]
-                data = [dict(zip(lines[0], l)) for l in lines[1:]]
+            # word = request.args.get('search_string')
+            # with open('Products/data.csv', 'r') as f_in:
+            #     csv_reader = csv.reader(f_in, delimiter=',', quotechar='"')
+            #     lines = [line for line in csv_reader if line]
+            #     data = [dict(zip(lines[0], l)) for l in lines[1:]]
 
-            # found = [i['id'] for i in data if word in (i['product'].strip(),i['id'].strip())]
-            found = [i for i in data if word in (i['product'].strip(),i['id'].strip())]
+            # # found = [i['id'] for i in data if word in (i['product'].strip(),i['id'].strip())]
+            # found = [i for i in data if word in (i['product'].strip(),i['id'].strip())]
+            found = self.search(request.args.get('search_string'))
             response = Response(json.dumps(found), mimetype='application/json')
-            
+            print(found)   
 
             #if request.args.get('add_to_cart'):
              #   response.set_cookie('cart_cookie',json.dumps(found))
