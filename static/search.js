@@ -1,6 +1,4 @@
-/*var myFunction;
-var onclickFuction;
-*/
+// Search Button Function
         function myFunction() {
             var xhttp = new XMLHttpRequest();
             var search_string = document.getElementById("search_string").value;
@@ -17,18 +15,15 @@ var onclickFuction;
             xhttp.open("POST", "/search?search_string="+search_string, true);
             xhttp.send();
         }
-
+// "Add To Cart" Button Function
         function onclickFuction(id) {
             
             var xhttp = new XMLHttpRequest();
-            //var search_string = document.getElementById("search_string").value;
             var li = "";
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200){
                     var result = JSON.parse(this.responseText);
                     console.log(this.responseText);
-                    /*li = '<li class="list-group-item d-flex justify-content-between lh-condensed"><div><h6 class="my-0">'+result[0].product+'</h6></div><span class="text-muted">'+result[0].price+'</span></li>';*/
-
                     var element = document.getElementById("div");
                     element.classList.remove("d-none");
                     var element = document.getElementById("list");
@@ -37,36 +32,19 @@ var onclickFuction;
                     att = document.createAttribute("class");
                     att.value = "list-group-item d-flex justify-content-between lh-condensed"
                     li.setAttributeNode(att);
-                    
-                   /* element.innerHTML = `
-
-                        <div class="col-6">
-                          <h4>
-                            <span class="text-muted"> Your cart </span>
-                            <!--<span class="badge badge-secondary badge-pill"> 3 </span>-->
-                          </h4>  
-                          <ul class="list-group mb-3" id="list">
-                          <!--{% for row in data %}-->
-                        <li class="list-group-item d-flex justify-content-between lh-condensed">
-                              <div>
-                                <h6 class="my-0">{{ product }}</h6> <!-- row.1 -->
-                              </div>
-                              <span class="text-muted"> <!-- row.2 -->
-                                {{ price }}
-                              </span>
-                            </li>
-                            <!--{% endfor %}-->
-                            </div>
-                        `
-*/
-
-                    element.appendChild(li);
-                    //document.body.appendChild(li);
+ // "Continue to Check Out" Button Function
+      function checkOutFuction() {
+            
+            alert("Thank You For Your Time ! Your Data Successfully Recorded !");
+            var xhttp = new XMLHttpRequest();
+            
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200){
+                    console.log(this.responseText);
                 }
+                document.getElementById("check_id")
             };
-            xhttp.open("POST", "/search?search_string="+id+"&add_to_cart=1", true);
-            //xhttp.open("POST", "/add?search_string="+id+"&add_to_cart=1", true);
-            //xhttp.open("POST", "/search?search_string="+id, true);
+            xhttp.open("POST", "/check?check_out=0", true);
             xhttp.send();
 
                     }
