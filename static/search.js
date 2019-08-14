@@ -33,7 +33,7 @@
                     att.value = "list-group-item d-flex justify-content-between lh-condensed"
                     li.setAttributeNode(att);
 
-                     element.appendChild(li);
+                    element.appendChild(li);
                 }
             };
             xhttp.open("POST", "/search?search_string="+id+"&add_to_cart=1", true);
