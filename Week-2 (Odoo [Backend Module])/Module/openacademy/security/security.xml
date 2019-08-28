@@ -1,0 +1,67 @@
+<odoo>
+    <data>    
+        <record model="ir.module.category" id="model_openacademy_manager">
+        	<field name="name">OpenAcademy Management</field>
+        	<field name="description">Category for OpenAcademy</field>
+        </record>
+
+        <record id="group_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="category_id" ref="model_openacademy_manager"/>
+        </record>
+        
+        <record id="group_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="model_openacademy_manager"/>
+            <field name="implied_ids" eval="[(4, ref('group_user'))]"/>
+        </record>
+     
+<!--         <record id="group_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="model_openacademy_manager"/>
+            <field name="implied_ids" eval="[(4, ref('group_user'))]"/>
+        </record>
+ -->
+        <record id="only_user_can_see" model="ir.rule">
+            <field name="name">User's Course</field>
+            <field name="model_id" ref="model_openacademy_course"/>
+            <field name="domain_force">[('responsible_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_user'))]"/>
+        </record>
+
+        <record id="only_manager_can_see" model="ir.rule">
+            <field name="name">Manager's Course</field>
+            <field name="model_id" ref="model_openacademy_course"/>
+            <field name="domain_force">[]</field>
+            <field name="groups" eval="[(4, ref('group_manager'))]"/>
+        </record>
+
+        <record model="ir.rule" id="user_session">
+            <field name="name">User's Session</field>
+            <field name="model_id" ref="model_openacademy_session"/>
+            <field name="domain_force">[('course_id.responsible_id.id','=',user.id)]</field>
+        </record>
+
+        <record model="ir.rule" id="manager_session">
+            <field name="name">Manager's Session</field>
+            <field name="model_id" ref="model_openacademy_session"/>
+            <field name="domain_force">[]</field>
+            <field name="groups" eval="[(4, ref('group_manager'))]"/>
+        </record>
+
+    </data>
+</odoo>
+
+<!-- openacademy.course -->
+
+
+<!-- course_manager,course manager,model_openacademy_course,group_manager,1,1,1,1
+session_manager,session manager,model_openacademy_session,group_manager,1,1,1,1
+course_read_all,course all,model_openacademy_course,group_user,1,1,0,0
+session_read_all,session all,model_openacademy_session,group_user,1,1,0,0 -->
+
+
+<!-- id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_openacademy_course,openacademy.course,model_openacademy_course,base.group_user,1,0,0,0
+access_openacademy_session,openacademy.session,model_openacademy_session,base.group_user,1,0,0,0
+ -->

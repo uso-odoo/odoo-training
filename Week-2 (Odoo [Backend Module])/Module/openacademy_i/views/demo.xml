@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+        <!-- window action -->
+        <!--
+            The following tag is an action definition for a "window action",
+            that is an action opening a view or a set of views
+        -->
+        <record model="ir.ui.view" id="course_inherit_action">
+            <field name="name">Courses Inherit</field>
+            <field name="model">openacademy.course</field>
+            <field name="inherit_id" ref="openacademy.course_form_view"/>
+            <field name="arch" type="xml">
+        <!-- find field description and add the field
+             idea_ids after it -->
+                <xpath expr="//field[@name='responsible_id']" position="after">
+                    <field name="description" string="Description"/>
+                </xpath>
+            </field>
+    </record>
+
+
+
+
+<!--         <xpath expr="//field[@name='description']" position="after">
+          <field name="idea_ids" string="Number of ideas"/>
+        </xpath>
+ -->
+
+<!--      <field name="arch" type="xml">
+ -->        <!-- find field description and add the field
+             idea_ids after it -->
+<!--         <xpath expr="//field[@name='description']" position="after">
+          <field name="idea_ids" string="Number of ideas"/>
+        </xpath>
+    </field> -->
+
+<!--                     <xpath expr="//field[@name='responsible_id']" position='before'> -->
+<!--                     <lable for="description"> -->
+                  <!--   <field name="description" string="Description">
+                </xpath>
+ -->
+</odoo>
