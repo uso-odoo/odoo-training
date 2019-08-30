@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <div t-name="simple_html">
+        <t t-set="foo">
+            <li>ok</li>
+        </t>
+        <t t-esc="foo"/>
+    </div>
+
+</templates>
