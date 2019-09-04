@@ -287,7 +287,14 @@
         <record id="js_action" model="ir.actions.client">
             <field name="name">JS</field>
             <field name="tag">store</field>
+<!--             <field name="res_model">openacademy.index</field>             -->
         </record>
+
+<!--         <record id="openacademy_index" model="ir.actions.act_window">
+            <field name="name">Academy teachers</field>
+            <field name="res_model">academy.teachers</field>
+        </record>
+ -->
 
 
         <!-- top level menu: no parent -->

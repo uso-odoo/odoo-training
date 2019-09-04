@@ -68,6 +68,12 @@
             </field>
         </record> -->
 
+<!--         <record id="index" model="openacademy.index">
+            <field name="name">Index</field>
+        </record> -->
+  
+
+
         <menuitem sequence="0" id="menu_academy" name="Academy"/>
         <!-- <menuitem id="menu_academy_content" parent="menu_academy"
             name="Academy Content"/> -->

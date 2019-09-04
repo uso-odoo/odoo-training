@@ -161,6 +161,11 @@ class Courses(models.Model):
     # name = fields.Char()
     teacher_id = fields.Many2one('academy.teachers', string="Teacher")
 
+# class Index(models.Model):
+#     _name = 'openacademy.index'
+
+#     name = fields.Char()
+
 
 # access_academy_teachers,access.academy.teachers,model_academy_teachers,,1,1,1,0
 # access_academy_courses,access.academy.courses,model_academy_courses,,1,1,1,0

@@ -1,0 +1,79 @@
+.o_content{
+
+    @mixin button-bg($bg) {
+    
+      background: $bg;
+    
+      &:hover {
+    
+        background:darken($bg,8%);
+        transition: all 0.3s ease;
+    
+      }
+      &:active {
+    
+        background:darken($bg,25%);
+    
+      } 
+    }
+
+    .btn-blue {
+       
+       @include button-bg(#3498db);
+    
+    }
+
+    .circle{
+    
+    	border-radius:50%;
+    
+    }
+
+    .maintable {
+
+      width:100%;
+    
+    }
+
+    .row .left .mytHead tr th{
+    
+      background-color: lightgrey;
+      border: 1px solid black;
+      border-collapse: collapse;
+    
+    } 
+
+    .row .left .maintable tr td {
+    
+      border: 1px solid black;
+      border-collapse: collapse;
+    
+    }
+
+    .row{
+
+      position: absolute;
+      margin: auto;
+      top: 400px;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 600px;
+      height: 500px;
+    
+    }
+
+    .left{
+
+      float: left;
+      width: 450px;
+    
+    }
+
+    .right{
+
+      float: right;
+      width: 150px;
+    
+    }
+}

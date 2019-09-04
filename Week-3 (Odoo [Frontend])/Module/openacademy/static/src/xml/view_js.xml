@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
 
-    <div t-name="simple_html">
-        <t t-set="foo">
-            <li>ok</li>
-        </t>
-        <t t-esc="foo"/>
+    <div t-name="simple_html" class="t_div">
+        <div class="ab_div">
+        </div>
+    </div>
+
+    <div t-name="widget_html" class="row">
+        <div class="left">
+          <table class="maintable">
+            <thead class="mytHead">
+            <tr>
+              <th>Index</th>
+              <th>Text</th>
+            </tr>
+            </thead>
+            <tbody class="mytBody" />
+          </table>
+        </div>
+        <div class="right">
+          <button class="btn-blue circle add">+</button>
+          <button class="btn-blue circle remove">-</button>
+        </div>
     </div>
 
 </templates>
+
+
