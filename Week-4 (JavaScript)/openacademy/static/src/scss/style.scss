@@ -1,0 +1,69 @@
+.o_content{
+
+    @mixin button-bg($bg) {
+    
+      background: $bg;
+    
+      &:hover {
+    
+        background:darken($bg,8%);
+        transition: all 0.3s ease;
+    
+      }
+      &:active {
+    
+        background:darken($bg,25%);
+    
+      } 
+    }
+
+    .maintable {
+
+      border-collapse: collapse;
+      width: 100%;    
+    
+    }
+
+    .row .maintable th {
+    
+      padding: 8px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    
+    }
+
+    .row .maintable td {
+    
+      padding: 8px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    
+    }
+
+    .row{
+
+      position: absolute;
+      margin: auto;
+      top: 50px;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 600px;
+      height: 500px;
+
+    }
+
+    .addrow{
+
+      @include button-bg(#4CAF50);
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      width: 600px;
+    } 
+}

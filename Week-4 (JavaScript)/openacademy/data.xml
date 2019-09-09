@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<odoo>
+<!--   <record model="product.public.category" id="category_courses">
+    <field name="name">Courses</field> -->
+<!--     <field name="parent_id" ref="website_sale.categ_others"/> -->
+<!--     <field name="parent_id"/>
+  </record> -->
+
+  <data>
+    <record model="product.public.category" id="category_courses">
+        <field name="name">Courses</field>
+        <field name="parent_id" />
+    </record>
+  </data>
+
+
+</odoo>
