@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates id="template" xml:space="preserve">
+
+    <div t-name="simple_html" class="t_div">
+        <div class="ab_div"/>
+    </div>
+
+    <div t-name="widget_html" class="row">
+        <div>
+          <table class="maintable">
+            <thead class="mytHead">
+            <tr>
+              <th>Name</th>
+              <th>Gmail</th>
+              <th>Phone</th>
+            </tr>
+            </thead>
+            <tbody class="mytBody">
+              <tr>
+                <td>
+                  <input type="text" name="username" />
+                </td>
+                <td>
+                  <input type="text" name="gmail" />
+                </td>
+                <td>
+                  <input type="text" name="phone" />
+                </td>
+              </tr>
+            </tbody>  
+          </table>
+          <hr />
+          <button class="addrow add">Add Row</button>
+        </div>
+    </div>
+
+</templates>
+
+

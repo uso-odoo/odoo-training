@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<odoo>
+    <template id="assets_backend" name="openacademy assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+<!--             <link rel="stylesheet" type="text/scss" href="/openacademy/static/src/scss/quiz_style.scss"/> -->
+            <script type="text/javascript" src="/openacademy/static/src/js/quiz.js"></script>
+        </xpath>
+    </template>
+</odoo>
+
+<!-- .o_content{
+
+    header {
+        background-color: #666;
+        padding: 30px;
+        text-align: right;
+        font-size: 25px;
+        color: white;
+    }
+
+
+
+} -->

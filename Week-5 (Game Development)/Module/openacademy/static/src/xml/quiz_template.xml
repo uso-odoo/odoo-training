@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates id="template" xml:space="preserve">
+
+    <div t-name="page_html" class="t_div">
+        <div class="ab_div"/>
+    </div>
+
+    <div t-name="header_html" class="row">
+      <header>
+        <h4 class="date" />
+      </header>
+
+    </div>
+
+</templates>
+
+

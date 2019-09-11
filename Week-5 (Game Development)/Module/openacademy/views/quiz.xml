@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+        <!-- window action -->
+        <!--
+            The following tag is an action definition for a "window action",
+            that is an action opening a view or a set of views
+        -->
+        <record model="ir.actions.act_window" id="quiz_list_action">
+            <field name="name">Quiz</field>
+            <field name="res_model">openacademy.quiz</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="context" eval="{'search_default_my_courses': 1}"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create the first Quiz
+                </p>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record model="ir.ui.view" id="quiz_form_view">
+            <field name="name">quiz.form</field>
+            <field name="model">openacademy.quiz</field>
+            <field name="arch" type="xml">
+                <form string="Quiz Form">
+
+                  <sheet>
+                      <group>
+                          <field name="name"/>
+                          <field name="description"/>
+                      </group>
+                        <notebook>
+                          <page string="Questions">
+                            <field name="question_ids">
+<!--                             <field name="groups" eval="[(4, ref('openacademy.group_quiz_student'))]"/>
+                              <tree string="Quiz questions">
+ -->                                <field name="name"/>
+                                  <field name="answer"/>
+<!--                                 <field name="answer" position="attributes">
+                                    <attribute name="invisible">1</attribute>
+                                </field>
+ -->
+<!--                                   <field name="answer" position="attributes">
+                                        <attribute name="groups">group_quiz_teacher</attribute>
+                                    </field> -->
+                              </tree>
+                            </field>
+                          </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+
+        <!--  Question Form -->
+
+        <record model="ir.ui.view" id="question_form_view">
+          <field name="name">question.form</field>
+          <field name="model">openacademy.quizline</field>
+          <field name="arch" type="xml">
+              <form string="Question Form">
+                <sheet>
+                    <group string="General">
+                      <field name="quiz_id"/>
+                      <field name="name"/>
+                      <field name="answer"/>
+<!--                     <field name="answer" position="attributes">
+                        <attribute name="groups">group_quiz_teacher</attribute>
+                    </field> -->
+                    </group>
+                </sheet>
+              </form>
+          </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_openacademy_quiz_kanban">
+            <field name="name">openacademy.quiz.kanban</field>
+            <field name="model">openacademy.quiz</field>
+            <field name="arch" type="xml">
+<!--                 <kanban default_group_by="name"> -->
+                <kanban default_group_by="name">
+                    <field name="color"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div
+                                    t-attf-class="oe_kanban_color_{{kanban_getcolor(record.color.raw_value)}}
+                                                  oe_kanban_global_click_edit oe_semantic_html_override
+                                                  oe_kanban_card {{record.group_fancy==1 ? 'oe_kanban_card_fancy' : ''}}">
+                                <div class="oe_dropdown_kanban">
+                                    <!-- dropdown menu -->
+                                    <div class="oe_dropdown_toggle">
+                                        <i class="fa fa-bars fa-lg" title="Manage" aria-label="Manage"/>
+                                        <ul class="oe_dropdown_menu">
+                                            <li>
+                                                <a type="delete">Delete</a>
+                                            </li>
+                                            <li>
+                                                <ul class="oe_kanban_colorpicker"
+                                                    data-field="color"/>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="oe_clear"></div>
+                                </div>
+                                <div t-attf-class="oe_kanban_content">
+                                    <!-- title -->
+                                    Quiz name:
+                                    <field name="name"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="quizline_list_action">
+            <field name="name">Questions</field>
+            <field name="res_model">openacademy.quizline</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem id="quiz_menu" name="Quiz" parent="openacademy_menu"
+                  action="quiz_list_action"/>
+        <!-- Full id location:
+             action="openacademy.course_list_action"
+             It is not required when it is the same module -->
+
+        <menuitem id="question_menu" name="Questions"
+                  parent="openacademy_menu"
+                  action="quizline_list_action" />
+        
+</odoo>
